@@ -1,0 +1,5 @@
+autopep8==1.4
+flake8==3.5.0
+Flask==1.0.2
+pytest==3.8.2
+gunicorn==19.9.0
