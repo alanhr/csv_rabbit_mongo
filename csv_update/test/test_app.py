@@ -21,7 +21,7 @@ def test_upload(CsvToList, client):
         b"'name,email,age\nJorge,jorge@test.com,30\nAlan,alan@test.com,303'"), 'test.csv')
 
     response = client.post(
-        "/upload",
+        "/users/upload",
         content_type='multipart/form-data',
         data=data
     )
@@ -36,7 +36,7 @@ def test_upload(CsvToList, client):
     data['file'] = ''
 
     response = client.post(
-        "/upload",
+        "/users/upload",
         content_type='multipart/form-data',
         data=data
     )
