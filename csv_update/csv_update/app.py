@@ -28,16 +28,18 @@ def upload():
     
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        full_path_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        file.save(full_path_file)
 
         csvToList = CsvToList(
-            open(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+            open(full_path_file))
 
-        listDict = csvToList.get_list()
+        users = csvToList.get_list()
 
         queue = Queue()
 
-        queue.send_batch('user',listDict)
+        queue.send_batch('user', users)
 
         queue.close()
 
