@@ -21,7 +21,7 @@ def allowed_file(filename):
 def healthcheck():
     return jsonify({"status": "UP"}), 200
 
-@app.route("/upload",methods=["POST"])
+@app.route("/users/upload",methods=["POST"])
 def upload():
 
     file = request.files.get('file')
