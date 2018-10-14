@@ -1,16 +1,12 @@
-import os
 from flask import Flask, jsonify, request
-from werkzeug.utils import secure_filename
-from tempfile import gettempdir
 
 from csv_update.CsvToList import CsvToList
 from csv_update.Queue import Queue
+from csv_update.utils.file import save_tmp_file
 
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = set(['csv'])
-app.config['UPLOAD_FOLDER'] = gettempdir()
-
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -21,16 +17,15 @@ def allowed_file(filename):
 def healthcheck():
     return jsonify({"status": "UP"}), 200
 
-@app.route("/users/upload",methods=["POST"])
+
+@app.route("/users/upload", methods=["POST"])
 def upload():
 
     file = request.files.get('file')
-    
+
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        full_path_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        
-        file.save(full_path_file)
+
+        full_path_file = save_tmp_file(file)
 
         csvToList = CsvToList(
             open(full_path_file))
@@ -43,6 +38,6 @@ def upload():
 
         queue.close()
 
-        return '',200
+        return '', 200
 
     return jsonify({'status_code': 400}), 400, {'ContentType': 'application/json'}
