@@ -10,3 +10,8 @@ def save_tmp_file(file):
     file.save(full_path_file)
 
     return full_path_file
+
+
+def allowed_file(filename, types):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in set(types)
