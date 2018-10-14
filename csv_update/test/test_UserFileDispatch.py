@@ -3,10 +3,10 @@ import io
 from werkzeug.datastructures import FileStorage
 from unittest.mock import patch
 
-from csv_update.DispatchFileUser import DispatchFileUser
+from csv_update.UserFileDispatch import UserFileDispatch
 
 
-@patch('csv_update.DispatchFileUser.Queue')
+@patch('csv_update.UserFileDispatch.Queue')
 def test_successded(Queue):
     stream = io.BytesIO(
         b"'name,email,age\nJorge,jorge@test.com,30\nAlan,alan@test.com,303'")
@@ -15,19 +15,19 @@ def test_successded(Queue):
 
     expected_result = True
 
-    dispatch = DispatchFileUser(data)
+    dispatch = UserFileDispatch(data)
     dispatch.send()
 
     assert dispatch.successded() == expected_result
 
 
-@patch('csv_update.DispatchFileUser.Queue')
+@patch('csv_update.UserFileDispatch.Queue')
 def test_fail(Queue):
     data = {'file': ''}
 
     expected_result = False
 
-    dispatch = DispatchFileUser(data)
+    dispatch = UserFileDispatch(data)
     dispatch.send()
 
     assert dispatch.successded() == expected_result

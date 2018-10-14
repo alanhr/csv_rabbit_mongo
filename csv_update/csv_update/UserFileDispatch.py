@@ -3,7 +3,7 @@ from csv_update.Queue import Queue
 from csv_update.utils.file import save_tmp_file, allowed_file
 
 
-class DispatchFileUser:
+class UserFileDispatch:
     def __init__(self, files):
         self.__files = files
         self.__error = {}

@@ -12,7 +12,7 @@ def client():
     yield client
 
 
-@patch('csv_update.DispatchFileUser.Queue')
+@patch('csv_update.UserFileDispatch.Queue')
 def test_upload_status_equal_200(Queue, client):
     exptected_result = 200
 
@@ -29,7 +29,7 @@ def test_upload_status_equal_200(Queue, client):
     assert response.status_code == exptected_result
 
 
-@patch('csv_update.DispatchFileUser.Queue')
+@patch('csv_update.UserFileDispatch.Queue')
 def test_upload_status_equal_400(Queue, client):
     exptected_result = 400
 

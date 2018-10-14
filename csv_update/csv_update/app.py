@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from csv_update.DispatchFileUser import DispatchFileUser
+from csv_update.UserFileDispatch import UserFileDispatch
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def healthcheck():
 
 @app.route("/users/upload", methods=["POST"])
 def upload():
-    dispatch_file = DispatchFileUser(request.files)
+    dispatch_file = UserFileDispatch(request.files)
 
     dispatch_file.send()
 
