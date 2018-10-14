@@ -33,7 +33,7 @@ class DispatchFileUser:
     def send(self):
         file = self.__files.get('file')
         users = []
-
+        print(file)
         if file and allowed_file(file.filename, ['csv']):
             users = self.__convert_file(file, users)
 

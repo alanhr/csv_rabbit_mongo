@@ -12,8 +12,8 @@ def client():
     yield client
 
 
-@patch('csv_update.CsvToList.CsvToList')
-def test_upload(CsvToList, client):
+@patch('csv_update.DispatchFileUser.Queue')
+def test_upload_status_equal_200(Queue, client):
     exptected_result = 200
 
     data = {}
@@ -28,8 +28,9 @@ def test_upload(CsvToList, client):
 
     assert response.status_code == exptected_result
 
-@patch('csv_update.CsvToList.CsvToList')
-def test_upload(CsvToList, client):
+
+@patch('csv_update.DispatchFileUser.Queue')
+def test_upload_status_equal_400(Queue, client):
     exptected_result = 400
 
     data = {}
