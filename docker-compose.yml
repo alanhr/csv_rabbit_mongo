@@ -1,19 +1,10 @@
 version: "3"
 
 services:
-  csv_update:
-    container_name: csv_update
-    depends_on: 
-      - rabbitmq
-    build:
-      context: ./csv_update
-      dockerfile: Dockerfile  
-    ports:
-      - "8080:5000"
-
-  rabbitmq:
+  rabbit:
+    container_name: rabbitmq
     image: "rabbitmq:3-management"
-    hostname: "rabbit1"
+    restart: always
     environment:
       RABBITMQ_DEFAULT_USER: "rabbitmq"
       RABBITMQ_DEFAULT_PASS: "rabbitmq"
@@ -21,5 +12,43 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-    labels:
-      NAME: "rabbitmq1"
+  
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: users
+    ports:
+      - 27017:27017
+  
+  csv_update:
+    container_name: csv_update
+    restart: always
+    depends_on: 
+      - rabbit
+    build:
+      context: ./csv_update
+      dockerfile: Dockerfile
+    environment: 
+      RABBIT_HOST: 'rabbit'
+    ports:
+      - "8080:5000"
+    links:
+      - rabbit
+
+  csv_read:
+    container_name: csv_read
+    restart: always
+    depends_on: 
+      - rabbit
+      - mongo
+      - csv_update
+    build:
+      context: ./csv_read
+      dockerfile: Dockerfile
+    environment: 
+      RABBIT_HOST: 'rabbit'
+    links:
+      - rabbit
+      - mongo
