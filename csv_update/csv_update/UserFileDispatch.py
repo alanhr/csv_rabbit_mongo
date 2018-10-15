@@ -27,13 +27,13 @@ class UserFileDispatch:
     def get_error(self):
         return self.__error
 
-    def successded(self):
+    def success(self):
         return True if not self.__error else False
 
     def send(self):
         file = self.__files.get('file')
         users = []
-        
+
         if file and allowed_file(file.filename, ['csv']):
             users = self.__convert_file(file, users)
 

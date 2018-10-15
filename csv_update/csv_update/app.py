@@ -16,7 +16,7 @@ def upload():
 
     dispatch_file.send()
 
-    if dispatch_file.successded():
+    if dispatch_file.success():
         return '', 200
 
     return (jsonify({**dispatch_file.get_error(), 'status_code': 400}),

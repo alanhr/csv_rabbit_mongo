@@ -7,7 +7,7 @@ from csv_update.UserFileDispatch import UserFileDispatch
 
 
 @patch('csv_update.UserFileDispatch.Queue')
-def test_successded(Queue):
+def test_success(Queue):
     stream = io.BytesIO(
         b"'name,email,age\nJorge,jorge@test.com,30\nAlan,alan@test.com,303'")
 
@@ -18,7 +18,7 @@ def test_successded(Queue):
     dispatch = UserFileDispatch(data)
     dispatch.send()
 
-    assert dispatch.successded() == expected_result
+    assert dispatch.success() == expected_result
 
 
 @patch('csv_update.UserFileDispatch.Queue')
@@ -30,4 +30,4 @@ def test_fail(Queue):
     dispatch = UserFileDispatch(data)
     dispatch.send()
 
-    assert dispatch.successded() == expected_result
+    assert dispatch.success() == expected_result
