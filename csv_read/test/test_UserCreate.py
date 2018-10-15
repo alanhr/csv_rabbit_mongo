@@ -42,5 +42,4 @@ def test_create_return_expection_when_user_is_invalid(conn):
     with pytest.raises(Exception) as excinfo:
         create(user_mock)
 
-    print('aqioidfd', excinfo.value)
     assert expected_result in str(excinfo.value)
