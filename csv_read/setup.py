@@ -1,7 +1,6 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='csv_read',
-    packages=['csv_read'],
-    include_package_data=True
+    packages=find_packages()
 )
