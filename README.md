@@ -4,6 +4,7 @@
 - Install [Compose](https://docs.docker.com/compose/install/)
 
 ## Stack
+
 - rabbitmq
 - mongob
 - python 3
@@ -14,8 +15,10 @@ call the comande `make tests` inside of folders `csv_read` and `csv_upload`
 
 ### Run Project
 
- docker-compose -f "docker-compose.yml" up -d --build
+ `docker-compose -f "docker-compose.yml" up -d --build`
 
  End-point to update the csv http://127.0.0.1:8080/users/upload
+
+ Get csv_read logs `docker logs -f csv_read`
 
  
